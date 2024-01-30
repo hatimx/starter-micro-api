@@ -17,8 +17,6 @@ function readData() {
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
             Key: "data/data.json",
         }).promise()
-
-console.log(JSON.parse(my_file))
     return data
 }
 
