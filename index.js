@@ -29,6 +29,21 @@ app.get('/', function (req, res) {
   res.status(200).send("Welcome to API on CYLIC Server");
 });
 
+////////////////////////////////////////////////////////////////////////////////
+
+app.get('/students', function (req, res) {
+    let data = readData()
+    res.status(200).send(data);
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+app.post('/addstudent', function (req, res) {
+    let student = req.body
+    writeData(student)
+    res.status(200).send("student added succesfully !");
+});
+
 
 
 app.listen(port, function () {});
