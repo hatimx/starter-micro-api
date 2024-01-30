@@ -6,16 +6,16 @@ const s3 = new AWS.S3()
 
 function writeData(data) {
     await s3.putObject({
-            Body: JSON.stringify({key:"value"}),
+            Body: JSON.stringify(data),
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
-            Key: "some_files/my_file.json",
+            Key: "data/data.json",
         }).promise()
 }
 
 function readData() {
     let my_file = await s3.getObject({
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
-            Key: "some_files/my_file.json",
+            Key: "data/data.json",
         }).promise()
 
 console.log(JSON.parse(my_file))
