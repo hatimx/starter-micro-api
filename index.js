@@ -5,18 +5,18 @@ const AWS = require("aws-sdk");
 const s3 = new AWS.S3()
 
 function writeData(data) {
-    await s3.putObject({
+     s3.putObject({
             Body: JSON.stringify(data),
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
             Key: "data/data.json",
-        }).promise()
+        })
 }
 
 function readData() {
-    let my_file = await s3.getObject({
+    let data =  s3.getObject({
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
             Key: "data/data.json",
-        }).promise()
+        })
     return data
 }
 
