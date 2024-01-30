@@ -17,7 +17,7 @@ function readData() {
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
             Key: "data/data.json",
         })
-    return JSON.Parse(data)
+    return data
 }
 
 const app = express();
