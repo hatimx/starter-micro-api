@@ -34,7 +34,9 @@ app.get('/students', function (req, res) {
 });
 
 app.post('/addstudent', function (req, res) { 
-    res.status(200).send("Welcome to Cyclic Server...");
+     let student = req.body
+     writeData(student)
+    res.status(200).send("Student Added Successfully");
 });
 
 app.listen(port, function () {
