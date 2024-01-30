@@ -17,7 +17,7 @@ function readData() {
             Bucket: "cyclic-cute-robe-tick-eu-west-2",
             Key: "data/data.json",
         })
-    return data
+    return JSON.Parse(data)
 }
 
 const app = express();
@@ -25,6 +25,15 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) { 
+    res.status(200).send("Welcome to Cyclic Server...");
+});
+
+app.get('/students', function (req, res) { 
+    let data = readData()
+     res.status(200).send(data)
+});
+
+app.post('/addstudent', function (req, res) { 
     res.status(200).send("Welcome to Cyclic Server...");
 });
 
