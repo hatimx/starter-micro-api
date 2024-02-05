@@ -21,7 +21,7 @@ function readData(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         })
-  return data
+  return data.Body.toString()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ app.get('/', function (req, res) {
 
 app.get('/students', function (req, res) {
     let data = readData()
-    res.status(200).send(CircularJSON.stringify(data))
+    res.status(200).send(data)
 })
 
 ////////////////////////////////////////////////////////////////////////////////
