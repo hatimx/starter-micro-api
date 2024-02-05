@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
 
 app.get('/students', function (req, res) {
     let data = readData()
-    res.status(200).send(data[0])
+    res.status(200).send(data)
 })
 
 ////////////////////////////////////////////////////////////////////////////////
