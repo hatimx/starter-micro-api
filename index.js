@@ -2,9 +2,8 @@ const express = require('express')
 const AWS = require("aws-sdk")
 const CircularJSON = require('circular-json')
 
-const CyclicDb = require("@cyclic.sh/dynamodb")
+const CyclicDb = require("cyclic-dynamodb")
 const db = CyclicDb("clean-red-school-uniformCyclicDB")
-
 const students = db.collection("students")
 
 const s3 = new AWS.S3()
