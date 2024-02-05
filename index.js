@@ -20,7 +20,7 @@ function readData(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         })
-  return data
+  return JSON.parse(data)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
