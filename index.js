@@ -24,7 +24,7 @@ function readData(){
   return data.body
 }
 
-function readData2(){
+async function readData2(){
     try {
         let data = await s3.getObject({
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
@@ -45,7 +45,11 @@ app.get('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', async function (req, res) {
-    let data = readData2()
+    let data = await s3.getObject({
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "data/data.json",
+        }).promise() 
+    //let data = readData2()
     res.status(200).send(data)
 })
 
