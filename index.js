@@ -1,5 +1,6 @@
 const express = require('express')
 const AWS = require("aws-sdk")
+const CircularJSON = require('circular-json')
 
 const s3 = new AWS.S3()
 const app = express()
@@ -33,7 +34,7 @@ app.get('/', function (req, res) {
 
 app.get('/students', function (req, res) {
     let data = readData()
-    res.status(200).send(data)
+    res.status(200).send(CircularJSON.stringify(data))
 })
 
 ////////////////////////////////////////////////////////////////////////////////
