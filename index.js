@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-app.get('/students', function (req, res) {
+app.get('/students', async function (req, res) {
     let data = readData2()
     res.status(200).send(data)
 })
