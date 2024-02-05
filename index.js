@@ -1,9 +1,9 @@
-const express = require('express');
-const AWS = require("aws-sdk");
+const express = require('express')
+const AWS = require("aws-sdk")
 
 const s3 = new AWS.S3()
-const app = express();
-const port = 3000;
+const app = express()
+const port = 3000
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -20,30 +20,30 @@ function readData(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         })
-  return JSON.stringify(data)
+  return data
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/', function (req, res) {
-  res.status(200).send("Welcome to API on CYLIC Server");
-});
+  res.status(200).send("Welcome to API on CYLIC Server")
+})
 
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
     let data = readData()
-    res.status(200).send(data);
-});
+    res.status(200).send(data[0])
+})
 
 ////////////////////////////////////////////////////////////////////////////////
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
     writeData(student)
-    res.status(200).send("student added succesfully !");
-});
+    res.status(200).send("student added succesfully !")
+})
 
+////////////////////////////////////////////////////////////////////////////////
 
-
-app.listen(port, function () {});
+app.listen(port, function () {})
