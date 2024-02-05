@@ -43,7 +43,7 @@ async function readData2(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         }).promise()
-    return data
+    return data.body
 }
 
 ////////////////////////////////////////////////////////////////////////////////
