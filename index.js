@@ -24,6 +24,18 @@ function readData(){
   return data.body
 }
 
+function readData2(){
+    try {
+        let data = await s3.getObject({
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "data/data.json",
+        }).promise()
+    } 
+    catch (error) {
+        data = error
+    }
+    return data
+}
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/', function (req, res) {
@@ -33,7 +45,7 @@ app.get('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
-    let data = readData()
+    let data = readData2()
     res.status(200).send(data)
 })
 
