@@ -5,7 +5,7 @@ const AWS = require("aws-sdk")
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
 const db = CyclicDb("clean-red-school-uniformCyclicDB")
-const students = db.collection("students")
+const animals = db.collection("animals")
 
 const s3 = new AWS.S3()
 const app = express()
@@ -51,15 +51,15 @@ async function readData2(){
 ////////////////////////////////////////////////////////////////////////////////
 
 async function write_data_db(){
-    await students.set("id2", {
-    name: "ahmed",
-    age: "12"
+    let leo = await animals.set("leo", {
+    type: "cat",
+    color: "orange"
     })
 }
 
 async function read_data_db(){
-    let data = await students.get("id2")
-    return data
+    let item = await animals.get("leo")
+    return item
 }
 
 ////////////////////////////////////////////////////////////////////////////////
