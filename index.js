@@ -8,6 +8,7 @@ const students = db.collection("students")
 
 const s3 = new AWS.S3()
 const app = express()
+app.use(express.json())
 const port = 3000
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,5 +84,4 @@ app.post('/addstudent', function (req, res) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-app.use(express.json())
 app.listen(port, function () {})
