@@ -1,44 +1,88 @@
-const express = require('express');
-const port = 3000;
+const express = require('express')
+const bodyParser = require('body-parser')
+const AWS = require("aws-sdk")
+//const CircularJSON = require('circular-json')
 
-const AWS = require("aws-sdk");
+const CyclicDb = require("@cyclic.sh/dynamodb")
+const db = CyclicDb("clean-red-school-uniformCyclicDB")
+const animals = db.collection("animals")
+
 const s3 = new AWS.S3()
+const app = express()
+app.use(bodyParser.json())
+const port = 3000
 
-function writeData(data) {
-     s3.putObject({
+////////////////////////////////////////////////////////////////////////////////
+
+function writeData(data){
+    s3.putObject({
             Body: JSON.stringify(data),
-            Bucket: "cyclic-cute-robe-tick-eu-west-2",
-            Key: "data/data.json",
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "jsndata.json",
         })
 }
 
-function readData() {
-    let data =  s3.getObject({
-            Bucket: "cyclic-cute-robe-tick-eu-west-2",
-            Key: "data/data.json",
+function readData(){
+  let data = s3.getObject({
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "jsndata.json",
         })
+  return data.Body
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+async function writeData2(data){
+        await s3.putObject({
+            Body: JSON.stringify(data),
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "jsndata.json"
+        }).promise()
+}
+
+async function readData2(){
+        let data = await s3.getObject({
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
+            Key: "jsndata.json"
+        }).promise()
     return data
 }
 
-const app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+////////////////////////////////////////////////////////////////////////////////
 
-app.get('/', function (req, res) { 
-    res.status(200).send("Welcome to Cyclic Server...");
-});
+async function write_data_db(){
+    let leo = await animals.set("leo", {
+    type: "cat",
+    color: "orange"
+    })
+}
 
-app.get('/students', function (req, res) { 
-    let data = readData()
-     res.status(200).send(data)
-});
+async function read_data_db(){
+    let item = await animals.get("leo")
+    return item
+}
 
-app.post('/addstudent', function (req, res) { 
-     let student = req.body
-     writeData(student)
-    res.status(200).send("Student Added Successfully");
-});
+////////////////////////////////////////////////////////////////////////////////
 
-app.listen(port, function () {
-    
-});
+app.get('/', function (req, res) {
+  res.status(200).send("Welcome to API on CYLIC Server")
+})
+
+////////////////////////////////////////////////////////////////////////////////
+
+app.get('/students', function (req, res) {
+    let data = read_data_db()
+    res.status(200).send(data)
+})
+
+////////////////////////////////////////////////////////////////////////////////
+
+app.post('/addstudent', function (req, res) {
+    let student = req.body
+    write_data_db()
+    res.status(200).send("student saved !")
+})
+
+////////////////////////////////////////////////////////////////////////////////
+
+app.listen(port, function () {})
