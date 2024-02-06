@@ -1,4 +1,4 @@
-const express = require('express')
+dconst express = require('express')
 const AWS = require("aws-sdk")
 const CircularJSON = require('circular-json')
 
@@ -79,7 +79,7 @@ app.get('/students', function (req, res) {
 app.post('/addstudent', function (req, res) {
     let student = req.body
     writeData2(student)
-    res.status(200).json(student)
+    res.status(200).send("student added successfully !")
 })
 
 ////////////////////////////////////////////////////////////////////////////////
