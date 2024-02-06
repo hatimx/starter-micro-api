@@ -1,65 +1,39 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const AWS = require("aws-sdk")
-//const CircularJSON = require('circular-json')
-
-const CyclicDb = require("@cyclic.sh/dynamodb")
-const db = CyclicDb("clean-red-school-uniformCyclicDB")
-const animals = db.collection("animals")
-
-const s3 = new AWS.S3()
 const app = express()
 app.use(bodyParser.json())
 const port = 3000
 
-////////////////////////////////////////////////////////////////////////////////
+let students = JSON.parse("{}")
 
-function writeData(data){
-    s3.putObject({
-            Body: JSON.stringify(data),
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "jsndata.json",
-        })
+let student1 = {
+    id1 : {
+        nom : "test1",
+        prenom : "test1",
+        classe : "classe1"
+    }
 }
 
-function readData(){
-  let data = s3.getObject({
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "jsndata.json",
-        })
-  return data.Body
+let student2 = {
+    id2 : {
+        nom : "test2",
+        prenom : "test2",
+        classe : "classe2"
+    }
 }
 
-////////////////////////////////////////////////////////////////////////////////
+keys = Object.keys(student1)
+fkey = keys[0]
+students[fkey] = student1[fkey]
 
-async function writeData2(data){
-        await s3.putObject({
-            Body: JSON.stringify(data),
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "jsndata.json"
-        }).promise()
-}
+keys = Object.keys(student2)
+fkey = keys[0]
+students[fkey] = student2[fkey]
 
-async function readData2(){
-        let data = await s3.getObject({
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "jsndata.json"
-        }).promise()
-    return data
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-async function write_data_db(){
-    let leo = await animals.set("leo", {
-    type: "cat",
-    color: "orange"
-    })
-}
-
-async function read_data_db(){
-    let item = await animals.get("leo")
-    return item
+students["id3"] = {
+    nom : "test3",
+    prenom : "test3",
+    classe : "classe3"
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -75,16 +49,17 @@ app.post('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
-    let data = read_data_db()
-    res.status(200).send(data)
+    res.status(200).send(students)
 })
 
 ////////////////////////////////////////////////////////////////////////////////
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    write_data_db()
-    res.status(200).send("student saved !")
+    keys = Object.keys(student)
+    fkey = keys[0]
+    students[fkey] = student[fkey]
+    res.status(200).send("student saved successfully !")
 })
 
 ////////////////////////////////////////////////////////////////////////////////
