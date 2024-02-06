@@ -13,6 +13,7 @@
     "aws-sdk":"2.1546.0",
     "circular-json":"0.5.9",
     "@cyclic.sh/dynamodb":"0.0.35",
-    "body-parser":"1.20.2"
+    "body-parser":"1.20.2",
+    "@cyclic.sh/s3fs":"1.2.9"
   }
 }
