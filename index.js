@@ -26,7 +26,7 @@ function readData(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "jsndata.json",
         })
-  return data.Body
+  return data
 }
 
 ////////////////////////////////////////////////////////////////////////////////
