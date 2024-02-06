@@ -70,7 +70,7 @@ app.get('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
-    let data = readData2()
+    let data = readData()
     res.status(200).send(data)
 })
 
@@ -78,7 +78,7 @@ app.get('/students', function (req, res) {
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    writeData2(student)
+    writeData(student)
     res.status(200).send("student saved !")
 })
 
