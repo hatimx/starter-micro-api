@@ -76,9 +76,9 @@ app.get('/students', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.post('/addstudent', function (req, res) {
-    let student = JSON.parse(req.body)
+    let student = req.body
     writeData2(student)
-    res.status(200).send(JSON.stringify(student))
+    res.status(200).json(student)
 })
 
 ////////////////////////////////////////////////////////////////////////////////
