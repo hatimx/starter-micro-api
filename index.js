@@ -17,16 +17,16 @@ function writeData(data){
     s3.putObject({
             Body: JSON.stringify(data),
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data/data.json",
+            Key: "jsndata.json",
         })
 }
 
 function readData(){
   let data = s3.getObject({
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data/data.json",
+            Key: "jsndata.json",
         })
-  return data
+  return data.Body
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,16 +35,16 @@ async function writeData2(data){
         await s3.putObject({
             Body: JSON.stringify(data),
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data.json"
+            Key: "jsndata.json"
         }).promise()
 }
 
 async function readData2(){
         let data = await s3.getObject({
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data.json"
+            Key: "jsndata.json"
         }).promise()
-    return data.Body
+    return data
 }
 
 ////////////////////////////////////////////////////////////////////////////////
