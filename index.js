@@ -32,18 +32,18 @@ function readData(){
 ////////////////////////////////////////////////////////////////////////////////
 
 async function writeData2(data){
-    saved = "no error !"
-    try{
+    //saved = "no error !"
+    //try{
         await s3.putObject({
             Body: JSON.stringify(data),
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         }).promise()
-    }
-    catch(error){
-        saved = error.message
-    }
-    return saved
+    //}
+    //catch(error){
+        //saved = error.message
+    //}
+    //return saved
 }
 
 async function readData2(){
@@ -51,7 +51,7 @@ async function readData2(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         }).promise()
-    return data
+    return data.Body
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,8 +85,9 @@ app.get('/students', function (req, res) {
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    saved = writeData2(student)
-    res.status(200).send(saved)
+    writeData2(student)
+    //saved = writeData2(student)
+    res.status(200).send("student saved !")
 })
 
 ////////////////////////////////////////////////////////////////////////////////
