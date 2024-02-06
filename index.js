@@ -58,7 +58,7 @@ async function write_data_db(){
 }
 
 async function read_data_db(){
-    let data = await students.get()
+    let data = await students.get("id2")
     return data
 }
 
