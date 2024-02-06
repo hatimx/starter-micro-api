@@ -32,24 +32,17 @@ function readData(){
 ////////////////////////////////////////////////////////////////////////////////
 
 async function writeData2(data){
-    //saved = "no error !"
-    //try{
         await s3.putObject({
             Body: JSON.stringify(data),
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data/data.json",
+            Bucket: process.env.BUCKET,
+            Key: "data.json"
         }).promise()
-    //}
-    //catch(error){
-        //saved = error.message
-    //}
-    //return saved
 }
 
 async function readData2(){
         let data = await s3.getObject({
-            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
-            Key: "data/data.json",
+            Bucket: process.env.BUCKET,
+            Key: "data.json"
         }).promise()
     return data.Body
 }
@@ -86,7 +79,6 @@ app.get('/students', function (req, res) {
 app.post('/addstudent', function (req, res) {
     let student = req.body
     writeData2(student)
-    //saved = writeData2(student)
     res.status(200).send("student saved !")
 })
 
