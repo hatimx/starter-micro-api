@@ -68,6 +68,10 @@ app.get('/', function (req, res) {
   res.status(200).send("Welcome to API on CYLIC Server")
 })
 
+app.post('/', function (req, res) {
+  res.status(200).send("Welcome to API on CYLIC Server")
+})
+
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
