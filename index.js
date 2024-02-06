@@ -1,14 +1,14 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const AWS = require("aws-sdk")
-const CircularJSON = require('circular-json')
-
-const CyclicDb = require("@cyclic.sh/dynamodb")
-const db = CyclicDb("clean-red-school-uniformCyclicDB")
-const students = db.collection("students")
+//const CircularJSON = require('circular-json')
+//const CyclicDb = require("@cyclic.sh/dynamodb")
+//const db = CyclicDb("clean-red-school-uniformCyclicDB")
+//const students = db.collection("students")
 
 const s3 = new AWS.S3()
 const app = express()
-app.use(express.json())
+app.use(bodyParser.json())
 const port = 3000
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ app.get('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
-    let data = readData2()
+    let data = readData()
     res.status(200).send(data)
 })
 
@@ -78,7 +78,7 @@ app.get('/students', function (req, res) {
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    writeData2(student)
+    writeData(student)
     res.status(200).send(student)
 })
 
