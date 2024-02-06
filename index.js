@@ -6,12 +6,6 @@ const AWS = require("aws-sdk")
 //const db = CyclicDb("clean-red-school-uniformCyclicDB")
 //const students = db.collection("students")
 
-AWS.config.update({
-    accessKeyId: 'ASIAUPH2OSAEPQIH5RKS',
-    secretAccessKey: 'lLnbmNgOrv2a37Eo7VOKI3iArynsObctpJatAFhP',
-    region: 'eu-west-2'
-});
-
 const s3 = new AWS.S3()
 const app = express()
 app.use(bodyParser.json())
@@ -38,11 +32,18 @@ function readData(){
 ////////////////////////////////////////////////////////////////////////////////
 
 async function writeData2(data){
-   await s3.putObject({
+    saved = "no error !"
+    try{
+        await s3.putObject({
             Body: JSON.stringify(data),
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         }).promise()
+    }
+    catch(error){
+        saved = error.message
+    }
+    return saved
 }
 
 async function readData2(){
@@ -84,8 +85,8 @@ app.get('/students', function (req, res) {
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    writeData2(student)
-    res.status(200).send(student)
+    saved = writeData2(student)
+    res.status(200).send(saved)
 })
 
 ////////////////////////////////////////////////////////////////////////////////
