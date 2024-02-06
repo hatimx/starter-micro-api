@@ -83,4 +83,5 @@ app.post('/addstudent', function (req, res) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+app.use(express.json())
 app.listen(port, function () {})
