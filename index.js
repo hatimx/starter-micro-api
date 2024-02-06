@@ -34,14 +34,14 @@ function readData(){
 async function writeData2(data){
         await s3.putObject({
             Body: JSON.stringify(data),
-            Bucket: process.env.BUCKET,
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data.json"
         }).promise()
 }
 
 async function readData2(){
         let data = await s3.getObject({
-            Bucket: process.env.BUCKET,
+            Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data.json"
         }).promise()
     return data.Body
