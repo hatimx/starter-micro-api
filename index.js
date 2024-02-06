@@ -79,7 +79,7 @@ app.post('/addstudent', function (req, res) {
     console.log(req.body)
     let student = req.body
     writeData2(student)
-    res.status(200).send(JSON.stringify(student))
+    res.status(200).send("msg log"+JSON.stringify(student))
 })
 
 ////////////////////////////////////////////////////////////////////////////////
