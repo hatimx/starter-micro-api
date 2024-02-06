@@ -1,4 +1,4 @@
-dconst express = require('express')
+const express = require('express')
 const AWS = require("aws-sdk")
 const CircularJSON = require('circular-json')
 
@@ -44,7 +44,7 @@ async function readData2(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "data/data.json",
         }).promise()
-    return data.body
+    return JSON.parse(data)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
