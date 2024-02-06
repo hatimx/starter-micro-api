@@ -2,9 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const AWS = require("aws-sdk")
 //const CircularJSON = require('circular-json')
-//const CyclicDb = require("@cyclic.sh/dynamodb")
-//const db = CyclicDb("clean-red-school-uniformCyclicDB")
-//const students = db.collection("students")
+
+const CyclicDb = require("@cyclic.sh/dynamodb")
+const db = CyclicDb("clean-red-school-uniformCyclicDB")
+const students = db.collection("students")
 
 const s3 = new AWS.S3()
 const app = express()
@@ -26,7 +27,7 @@ function readData(){
             Bucket: "cyclic-clean-red-school-uniform-eu-west-2",
             Key: "jsndata.json",
         })
-  return data
+  return data.Body
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,8 +50,8 @@ async function readData2(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-async function write_data_db(data){
-    let st = await students.set("id2", {
+async function write_data_db(){
+    await students.set("id2", {
     name: "ahmed",
     age: "12"
     })
@@ -70,7 +71,7 @@ app.get('/', function (req, res) {
 ////////////////////////////////////////////////////////////////////////////////
 
 app.get('/students', function (req, res) {
-    let data = readData()
+    let data = read_data_db()
     res.status(200).send(data)
 })
 
@@ -78,7 +79,7 @@ app.get('/students', function (req, res) {
 
 app.post('/addstudent', function (req, res) {
     let student = req.body
-    writeData(student)
+    write_data_db()
     res.status(200).send("student saved !")
 })
 
