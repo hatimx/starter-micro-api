@@ -47,7 +47,7 @@ app.post('/addseance', function (req, res) {
     let seance = req.body
     keys = Object.keys(seance)
     fkey = keys[0]
-    seances[fkey] = seance
+    seances[seance[fkey]] = seance 
     res.status(200).send("seance saved successfully !")
 })
 
